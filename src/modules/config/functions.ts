@@ -24,6 +24,10 @@ export const convertEnvToBoolean = (env: string | undefined): boolean => {
   return env ? env === 'y' : false;
 };
 
+export const splitStringByComma = (input: string): string[] => {
+  return input.split(',');
+};
+
 export const availableEnvBoolean = ['y', 'n'];
 
 export const loadConfig = (): AppConfig => ({
@@ -31,6 +35,11 @@ export const loadConfig = (): AppConfig => ({
   APPLICATION_PORT: +(process.env.APPLICATION_PORT as string),
   APPLICATION_HOST: process.env.APPLICATION_HOST as string,
   LOGGER: convertEnvToBoolean(process.env.LOGGER),
+  DATABASE_URL: process.env.DATABASE_URL as string,
+  PRISMA_LOGGER_LEVELS: splitStringByComma(process.env.PRISMA_LOGGER_LEVELS as string),
+  TELEGRAM_BOT_API_KEY: process.env.TELEGRAM_BOT_API_KEY as string,
+  BASE_API_HOST: process.env.BASE_API_HOST as string,
+  BASE_API_PORT: +(process.env.BASE_API_PORT as string),
 });
 
 export const validationEnvSchema = Joi.object<EnvVariables, true>({
@@ -41,4 +50,9 @@ export const validationEnvSchema = Joi.object<EnvVariables, true>({
     .required()
     .valid(...availableEnvBoolean)
     .label('LOGGER'),
+  DATABASE_URL: Joi.string().required().label('DATABASE_URL'),
+  PRISMA_LOGGER_LEVELS: Joi.string().optional().default('').label('PRISMA_LOGGER_LEVELS'),
+  TELEGRAM_BOT_API_KEY: Joi.string().required().label('TELEGRAM_BOT_API_KEY'),
+  BASE_API_HOST: Joi.string().required().label('BASE_API_HOST'),
+  BASE_API_PORT: Joi.number().required().label('BASE_API_PORT'),
 });
