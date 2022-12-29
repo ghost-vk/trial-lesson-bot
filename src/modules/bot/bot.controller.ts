@@ -3,16 +3,13 @@ import { Request, Response } from 'express';
 
 import { BotService } from './bot.service';
 
-@Controller('webhoook')
+@Controller()
 export class BotController {
-  constructor(private readonly bot: BotService) {}
+  constructor(private readonly botService: BotService) {}
 
-  @Post('t')
+  @Post(`/bot`)
   async handleTelegramWebhook(@Req() req: Request, @Res() res: Response): Promise<void> {
-    const { message } = req.body;
-
-    console.log(JSON.stringify(message, null, 2));
-
-    res.status(200);
+    this.botService.bot.processUpdate(req.body);
+    res.sendStatus(200);
   }
 }

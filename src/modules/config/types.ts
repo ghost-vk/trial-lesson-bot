@@ -3,11 +3,11 @@ export interface AppConfig {
   APPLICATION_PORT: number;
   APPLICATION_HOST: string;
   LOGGER: boolean;
-  PRISMA_LOGGER_LEVELS: string[];
+  PRISMA_LOGGER_LEVELS: string;
   DATABASE_URL: string;
   TELEGRAM_BOT_API_KEY: string;
   BASE_API_HOST: string;
-  BASE_API_PORT: number;
+  BASE_API_PORT?: number;
 }
 
 export type EnvBoolean = "y" | "n";

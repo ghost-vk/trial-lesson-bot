@@ -11,7 +11,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
   constructor(config: ConfigService<AppConfig, true>) {
     super({
       datasources: { db: { url: config.get('DATABASE_URL') } },
-      log: config.get('PRISMA_LOGGER_LEVELS', { infer: true }),
+      log: config.get('PRISMA_LOGGER_LEVELS').split(','),
     });
   }
 
