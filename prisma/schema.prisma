@@ -23,7 +23,7 @@ model StepTemplate {
   step_template_id Int @id @default(autoincrement())
   step_template_uuid String @unique
   step_action StepActionEnum
-  message_template_uuid String 
+  message_template_uuid String @db.Uuid
   message_template MessageTemplate @relation(fields: [message_template_uuid], references: [message_template_uuid])
   order Int
   delay_minutes Int
@@ -49,7 +49,7 @@ model Step {
 
 model MessageTemplate {
   message_template_id Int @id @default(autoincrement())
-  message_template_uuid String @unique
+  message_template_uuid String @unique @db.Uuid
   text String
   step_templates StepTemplate[]
   steps Step[]
@@ -61,6 +61,7 @@ model MessageTemplate {
 
 model MessageTemplateLink {
   message_template_link_id Int @id @default(autoincrement())
+  message_template_link_uuid String @unique @db.Uuid 
   text String
   url String
   message_template_link_items MessageTemplateLinkItem[]
@@ -70,17 +71,17 @@ model MessageTemplateLink {
 
 model MessageTemplateLinkItem {
   message_template_link_item_id Int @id @default(autoincrement())
-  message_template_link_id Int
-  message_template_link MessageTemplateLink @relation(fields: [message_template_link_id], references: [message_template_link_id])
-  message_template_id Int
-  message_template MessageTemplate @relation(fields: [message_template_id], references: [message_template_id])
+  message_template_link_uuid String @db.Uuid
+  message_template_link MessageTemplateLink @relation(fields: [message_template_link_uuid], references: [message_template_link_uuid])
+  message_template_uuid String @db.Uuid
+  message_template MessageTemplate @relation(fields: [message_template_uuid], references: [message_template_uuid])
 
   @@map("message_template_link_item")
 }
 
 model MessageTemplateButton {
   message_template_button_id Int @id @default(autoincrement())
-  hash String @unique
+  message_template_button_uuid String @unique @db.Uuid 
   text String
   step_template_uuid String
   step_template StepTemplate @relation(fields: [step_template_uuid], references: [step_template_uuid])
@@ -91,10 +92,10 @@ model MessageTemplateButton {
 
 model MessageTemplateButtonItem {
   message_template_button_item_id Int @id @default(autoincrement())
-  message_template_button_id Int
-  message_template_button MessageTemplateButton @relation(fields: [message_template_button_id], references: [message_template_button_id])
-  message_template_id Int
-  message_template MessageTemplate @relation(fields: [message_template_id], references: [message_template_id])
+  message_template_button_uuid String @db.Uuid 
+  message_template_button MessageTemplateButton @relation(fields: [message_template_button_uuid], references: [message_template_button_uuid])
+  message_template_uuid String @db.Uuid
+  message_template MessageTemplate @relation(fields: [message_template_uuid], references: [message_template_uuid])
 
   @@map("message_template_button_item")
 }
