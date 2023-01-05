@@ -7,7 +7,7 @@ module.exports = {
     ecmaVersion: 2020,
     sourceType: 'module',
   },
-  ignorePatterns: ['.eslintrc.js'],
+  ignorePatterns: ['.eslintrc.js', 'src/seed/index.ts'],
   plugins: ['import', 'simple-import-sort', 'unused-imports'],
   rules: {
     'simple-import-sort/imports': 1,

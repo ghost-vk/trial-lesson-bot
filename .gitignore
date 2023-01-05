@@ -48,3 +48,5 @@ build/config\.gypi
 
 .env
 /**/.env
+
+**/**.xlsx
