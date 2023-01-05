@@ -370,6 +370,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nestjs/schedule@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "@nestjs/schedule@npm:2.1.0"
+  dependencies:
+    cron: 2.0.0
+    uuid: 8.3.2
+  peerDependencies:
+    "@nestjs/common": ^7.0.0 || ^8.0.0 || ^9.0.0
+    "@nestjs/core": ^7.0.0 || ^8.0.0 || ^9.0.0
+    reflect-metadata: ^0.1.12
+  checksum: 43423eb0491c692c08dcdb6d18d34ec758fe29cda52f4674a945e06933ec5b4e23229193c1b071971842b50db57024d6f1c55fe8f4c6392754b6a597b31eb423
+  languageName: node
+  linkType: hard
+
 "@nestjs/schematics@npm:^9.0.0":
   version: 9.0.3
   resolution: "@nestjs/schematics@npm:9.0.3"
@@ -576,6 +590,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/cron@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@types/cron@npm:2.0.0"
+  dependencies:
+    "@types/luxon": "*"
+    "@types/node": "*"
+  checksum: 392d2cfca51504140397533c30be8facd2196251074eb26ee09232a7e983144ff1d8364cd64922ed22d142686a4724934a70672fc8353b441fea729ac0ed0611
+  languageName: node
+  linkType: hard
+
 "@types/date-fns@npm:^2.6.0":
   version: 2.6.0
   resolution: "@types/date-fns@npm:2.6.0"
@@ -662,6 +686,13 @@ __metadata:
   version: 0.0.29
   resolution: "@types/json5@npm:0.0.29"
   checksum: e60b153664572116dfea673c5bda7778dbff150498f44f998e34b5886d8afc47f16799280e4b6e241c0472aef1bc36add771c569c68fc5125fc2ae519a3eb9ac
+  languageName: node
+  linkType: hard
+
+"@types/luxon@npm:*":
+  version: 3.2.0
+  resolution: "@types/luxon@npm:3.2.0"
+  checksum: 051bfbf841c6ce98728df6538342ce4aaddfcf0ec6e8b473e0195dcfc3ba6b1fe4b3ce17f2ba6d25344f41cb70032c1debe96da9e384e5f6e639665c1e6d368c
   languageName: node
   linkType: hard
 
@@ -1959,6 +1990,15 @@ __metadata:
   version: 1.1.1
   resolution: "create-require@npm:1.1.1"
   checksum: a9a1503d4390d8b59ad86f4607de7870b39cad43d929813599a23714831e81c520bddf61bcdd1f8e30f05fd3a2b71ae8538e946eb2786dc65c2bbc520f692eff
+  languageName: node
+  linkType: hard
+
+"cron@npm:2.0.0":
+  version: 2.0.0
+  resolution: "cron@npm:2.0.0"
+  dependencies:
+    luxon: ^1.23.x
+  checksum: 179ec137ada4ceb44cafe51c55491e84954308d7012d2a44539f0dadbbb1ffbbe3072c2f7aaa88595d60bd56e0d536aae2e4aaa4430c869317d6c2abd966988b
   languageName: node
   linkType: hard
 
@@ -3965,6 +4005,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"luxon@npm:^1.23.x":
+  version: 1.28.1
+  resolution: "luxon@npm:1.28.1"
+  checksum: 2c62999adea79645fd1e931d685f61aeb33eda7f39fbf79b84261a233b62f9590f48336654ee9efd405848bd9e13dc7fe087c701b7126187201a88998dc68b04
+  languageName: node
+  linkType: hard
+
 "macos-release@npm:^2.5.0":
   version: 2.5.0
   resolution: "macos-release@npm:2.5.0"
@@ -4302,9 +4349,11 @@ __metadata:
     "@nestjs/config": ^2.2.0
     "@nestjs/core": ^9.0.0
     "@nestjs/platform-express": ^9.0.0
+    "@nestjs/schedule": ^2.1.0
     "@nestjs/schematics": ^9.0.0
     "@nestjs/testing": ^9.0.0
     "@prisma/client": 4.8.0
+    "@types/cron": ^2.0.0
     "@types/date-fns": ^2.6.0
     "@types/express": ^4.17.13
     "@types/joi": ^17.2.3
@@ -4325,6 +4374,7 @@ __metadata:
     joi: ^17.7.0
     nestjs-pino: ^3.1.1
     node-telegram-bot-api: ^0.60.0
+    node-telegram-keyboard-wrapper: ^3.1.0
     node-xlsx: ^0.21.0
     pino: ^8.8.0
     pino-http: ^8.3.0
@@ -4424,6 +4474,13 @@ __metadata:
     request: ^2.83.0
     request-promise: ^4.2.2
   checksum: a2dab5f7b61db10c84484e70daa716f656654822fb819dc3f385fa6ec0a40d7035809dc9863387e006598b4ded18360daa6a810ea5ff2d251ea2130ddf781d07
+  languageName: node
+  linkType: hard
+
+"node-telegram-keyboard-wrapper@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "node-telegram-keyboard-wrapper@npm:3.1.0"
+  checksum: 9f4ad940e037e1c82aabbaa55debc1d8303aa61ecae9a43a4e33929ed52675d0d3058d301b726ec19190936f355439c171d2db15a3ff862a55a832ce85106d48
   languageName: node
   linkType: hard
 

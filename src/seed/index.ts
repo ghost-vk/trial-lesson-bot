@@ -18,6 +18,7 @@ const stepTemplateTable = {
   message_template_uuid: 2,
   order: 3,
   delay_minutes: 4,
+  to_message_template_uuid: 5,
 };
 
 const messageTemplateTable = {
@@ -50,9 +51,9 @@ const messageTemplateButtonItemTable = {
 async function seed(): Promise<void> {
   const sheet = xlsx.parse(`${__dirname}/seed.xlsx`);
 
+  await prisma.stepTemplate.deleteMany({});
   await prisma.messageTemplate.deleteMany({});
   await prisma.messageTemplateLink.deleteMany({});
-  await prisma.stepTemplate.deleteMany({});
   await prisma.messageTemplateButton.deleteMany({});
 
   for (let i = 0; i <= sheet[tables.messageTemplate].data.length - 1; i += 1) {
@@ -106,6 +107,7 @@ async function seed(): Promise<void> {
         message_template_uuid: row[stepTemplateTable.message_template_uuid],
         order: row[stepTemplateTable.order],
         delay_minutes: row[stepTemplateTable.delay_minutes],
+        to_message_template_uuid: row[stepTemplateTable.to_message_template_uuid],
       },
     });
   }

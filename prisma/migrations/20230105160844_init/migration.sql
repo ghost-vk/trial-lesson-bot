@@ -7,8 +7,8 @@ CREATE TYPE "StepStatusEnum" AS ENUM ('Done', 'Awaiting');
 -- CreateTable
 CREATE TABLE "user" (
     "user_id" SERIAL NOT NULL,
-    "telegram_id" BIGINT NOT NULL,
-    "name" TEXT NOT NULL,
+    "telegram_id" INTEGER NOT NULL,
+    "first_name" TEXT,
 
     CONSTRAINT "user_pkey" PRIMARY KEY ("user_id")
 );
@@ -21,6 +21,7 @@ CREATE TABLE "step_template" (
     "message_template_uuid" UUID NOT NULL,
     "order" INTEGER NOT NULL,
     "delay_minutes" INTEGER NOT NULL,
+    "to_message_template_uuid" UUID,
 
     CONSTRAINT "step_template_pkey" PRIMARY KEY ("step_template_id")
 );
@@ -29,10 +30,12 @@ CREATE TABLE "step_template" (
 CREATE TABLE "step" (
     "step_id" SERIAL NOT NULL,
     "message_template_uuid" UUID NOT NULL,
-    "telegram_message_id" INTEGER NOT NULL,
+    "telegram_message_id" INTEGER,
     "user_id" INTEGER NOT NULL,
     "step_template_uuid" UUID NOT NULL,
     "status" "StepStatusEnum" NOT NULL,
+    "execution_datetime" TIMESTAMPTZ NOT NULL,
+    "to_message_template_uuid" UUID,
 
     CONSTRAINT "step_pkey" PRIMARY KEY ("step_id")
 );
@@ -100,7 +103,10 @@ CREATE UNIQUE INDEX "message_template_link_message_template_link_uuid_key" ON "m
 CREATE UNIQUE INDEX "message_template_button_message_template_button_uuid_key" ON "message_template_button"("message_template_button_uuid");
 
 -- AddForeignKey
-ALTER TABLE "step_template" ADD CONSTRAINT "step_template_message_template_uuid_fkey" FOREIGN KEY ("message_template_uuid") REFERENCES "message_template"("message_template_uuid") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "step_template" ADD CONSTRAINT "step_template_message_template_uuid_fkey" FOREIGN KEY ("message_template_uuid") REFERENCES "message_template"("message_template_uuid") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "step_template" ADD CONSTRAINT "step_template_to_message_template_uuid_fkey" FOREIGN KEY ("to_message_template_uuid") REFERENCES "message_template"("message_template_uuid") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "step" ADD CONSTRAINT "step_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "user"("user_id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -112,7 +118,7 @@ ALTER TABLE "message_template_link_item" ADD CONSTRAINT "message_template_link_i
 ALTER TABLE "message_template_link_item" ADD CONSTRAINT "message_template_link_item_message_template_uuid_fkey" FOREIGN KEY ("message_template_uuid") REFERENCES "message_template"("message_template_uuid") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "message_template_button" ADD CONSTRAINT "message_template_button_step_template_uuid_fkey" FOREIGN KEY ("step_template_uuid") REFERENCES "step_template"("step_template_uuid") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "message_template_button" ADD CONSTRAINT "message_template_button_step_template_uuid_fkey" FOREIGN KEY ("step_template_uuid") REFERENCES "step_template"("step_template_uuid") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "message_template_button_item" ADD CONSTRAINT "message_template_button_item_message_template_button_uuid_fkey" FOREIGN KEY ("message_template_button_uuid") REFERENCES "message_template_button"("message_template_button_uuid") ON DELETE CASCADE ON UPDATE CASCADE;

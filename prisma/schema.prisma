@@ -1,5 +1,7 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
+//
+// CREATE INDEX active_steps_idx ON step (status, execution_datetime DESC);
 
 generator client {
   provider = "prisma-client-js"
@@ -12,8 +14,8 @@ datasource db {
 
 model User {
   user_id Int @id @default(autoincrement())
-  telegram_id BigInt @unique
-  name String
+  telegram_id Int @unique
+  first_name String?
   steps Step[]
 
   @@map("user")
@@ -24,10 +26,12 @@ model StepTemplate {
   step_template_uuid String @unique
   step_action StepActionEnum
   message_template_uuid String @db.Uuid
-  message_template MessageTemplate @relation(fields: [message_template_uuid], references: [message_template_uuid])
+  message_template MessageTemplate @relation(name: "default_mt", fields: [message_template_uuid], references: [message_template_uuid], onDelete: Cascade)
   order Int
   delay_minutes Int
   message_template_buttons MessageTemplateButton[]
+  to_message_template_uuid String? @db.Uuid
+  to_message_template MessageTemplate? @relation(name: "for_update_mt", fields: [to_message_template_uuid], references: [message_template_uuid], onDelete: Cascade)
 
   @@map("step_template")
 }
@@ -35,11 +39,13 @@ model StepTemplate {
 model Step {
   step_id Int @id @default(autoincrement())
   message_template_uuid String @db.Uuid
-  telegram_message_id Int
+  telegram_message_id Int?
   user_id Int
   user User @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
   step_template_uuid String @db.Uuid
   status StepStatusEnum
+  execution_datetime DateTime @db.Timestamptz
+  to_message_template_uuid String? @db.Uuid
 
   @@map("step")
 }
@@ -48,7 +54,8 @@ model MessageTemplate {
   message_template_id Int @id @default(autoincrement())
   message_template_uuid String @unique @db.Uuid
   text String
-  step_templates StepTemplate[]
+  step_templates StepTemplate[] @relation(name: "default_mt")
+  step_templates_u StepTemplate[] @relation(name: "for_update_mt")
   message_template_link_items MessageTemplateLinkItem[]
   message_template_button_items MessageTemplateButtonItem[] 
 
@@ -80,7 +87,7 @@ model MessageTemplateButton {
   message_template_button_uuid String @unique @db.Uuid 
   text String
   step_template_uuid String
-  step_template StepTemplate @relation(fields: [step_template_uuid], references: [step_template_uuid])
+  step_template StepTemplate @relation(fields: [step_template_uuid], references: [step_template_uuid], onDelete: Cascade)
   message_template_button_items MessageTemplateButtonItem[] 
 
   @@map("message_template_button")
