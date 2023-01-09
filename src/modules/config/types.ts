@@ -2,8 +2,8 @@ export interface AppConfig {
   NODE_ENV: string;
   APPLICATION_PORT: number;
   APPLICATION_HOST: string;
-  LOGGER: boolean;
-  PRISMA_LOGGER_LEVELS: string;
+  LOGGER_BOOL: boolean;
+  PRISMA_LOGGER_LEVELS_ARRAY: string[];
   DATABASE_URL: string;
   TELEGRAM_BOT_API_KEY: string;
   BASE_API_HOST: string;

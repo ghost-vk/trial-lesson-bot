@@ -13,7 +13,7 @@
     "start": "cross-env NODE_ENV=development nest start",
     "start:dev": "cross-env NODE_ENV=development nest start --watch",
     "start:debug": "cross-env NODE_ENV=development nest start --debug --watch",
-    "start:prod": "yarn prisma migrate deploy && yarn seed:prod && cross-env NODE_ENV=production node dist/main",
+    "start:prod": "yarn prisma generate && yarn prisma migrate deploy && yarn seed:prod && cross-env NODE_ENV=production node dist/main",
     "lint": "eslint \"src/**/*.ts\" --fix",
     "seed:dev": "ts-node src/seed",
     "seed:prod": "node dist/seed"
@@ -39,7 +39,6 @@
     "pino-tee": "^0.3.0",
     "prisma": "^4.8.0",
     "reflect-metadata": "^0.1.13",
-    "rimraf": "^3.0.2",
     "rxjs": "^7.2.0"
   },
   "devDependencies": {
@@ -62,6 +61,7 @@
     "eslint-plugin-simple-import-sort": "^8.0.0",
     "eslint-plugin-unused-imports": "^2.0.0",
     "prettier": "^2.3.2",
+    "rimraf": "^3.0.2",
     "source-map-support": "^0.5.20",
     "ts-loader": "^9.2.3",
     "ts-node": "^10.9.1",
